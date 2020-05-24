@@ -3,14 +3,6 @@ const animation = "animation_img"
 const container = "animated_bg_container"
 const animationsArray = ["Asset-36RubyBlink-256.gif","Rubybot-scratch.gif","Rubyfornia-v1.0-618x618-stretch-f.gif"]
 
-//get window size
-// function getWindowSize(){
-//     // Get width and height of the window excluding scrollbars
-//     let w = document.documentElement.clientWidth;
-//     let h = document.documentElement.clientHeight;
-//     console.log(`Window width: ${w}, height: ${h}`)
-// }
-
 function getWidthHeight(elemId){
   let grabElement = document.getElementById(elemId);
   let width = grabElement.clientWidth;
@@ -69,8 +61,8 @@ function isTimeToChangeBackground(){
   let minutes = rightNow.getMinutes()
 
   //for TESTING
-  // hours = 4
-  // minutes = 23
+  hours = 0
+  minutes = 0
   //end for testing
 
   //bolshe 2x no menishe 3 i 14 minut
@@ -79,10 +71,10 @@ function isTimeToChangeBackground(){
 
   if (0 <= hours && hours < 2){
     imgName = "v10-0000"
-  } else if ((2 <= hours) && (hours = 3 && minutes <= 14)){
+  } else if ((2 <= hours && hours < 3 ) || (hours == 3 && minutes <= 14)){
     imgName = "v10-0200"
     console.log('2 nochi')
-  } else if ((3 >= hours && minutes > 14) && hours < 4){
+  } else if ((3 == hours && minutes > 14) && hours < 4){
     imgName = "v10-0314"
   } else if (4 <= hours && hours < 6){
     imgName = "v10-0400"
@@ -102,7 +94,7 @@ function isTimeToChangeBackground(){
     imgName = "v10-1800"
   } else if (20 <= hours && hours < 22){
     imgName = "v10-2000"
-  } else if (22 <= hours && hours < 0){
+  } else if (22 <= hours && hours <= 23){
     imgName = "v10-2200"
   } else {
     imgName = "v10-0000"
