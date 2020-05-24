@@ -1,0 +1,31 @@
+$body-text1: 'Montserrat', sans-serif;
+$body-text2: 'Josefin Sans', sans-serif;
+$bg-color: #0c0548;
+$font-size-base: 16px;
+$font-color: #fff;
+
+$breakpoints: (
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":       560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "sm-comp":      1100px,
+    "desktop":      1248px,
+    "laptop":       1320px,
+    "desktop-wide": 1440px,
+    "monitor":      1600px
+);
+
+@mixin mq($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
