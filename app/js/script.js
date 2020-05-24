@@ -61,19 +61,16 @@ function isTimeToChangeBackground(){
   let minutes = rightNow.getMinutes()
 
   //for TESTING
-  hours = 0
-  minutes = 0
+  // hours = 0
+  // minutes = 0
   //end for testing
 
-  //bolshe 2x no menishe 3 i 14 minut
-
-  console.log(`Hours: ${hours} Minutes: ${minutes}`)
+  // console.log(`Hours: ${hours} Minutes: ${minutes}`)
 
   if (0 <= hours && hours < 2){
     imgName = "v10-0000"
   } else if ((2 <= hours && hours < 3 ) || (hours == 3 && minutes <= 14)){
     imgName = "v10-0200"
-    console.log('2 nochi')
   } else if ((3 == hours && minutes > 14) && hours < 4){
     imgName = "v10-0314"
   } else if (4 <= hours && hours < 6){
@@ -101,12 +98,11 @@ function isTimeToChangeBackground(){
   }
 
   imgName += imgExtention
-
   let currBgFullPath = getCurrentBg(element)
   let currBgArray = currBgFullPath.split("/")
   currBg = currBgArray.slice(-1)[0].replace(/[{()}"]/g, '');
 
-  console.log(`Current background: ${currBg}, calculated bg: ${imgName}`)
+  // console.log(`Current background: ${currBg}, calculated bg: ${imgName}`)
 
   if (currBg === imgName) return
 
@@ -133,21 +129,22 @@ function pickAnimationRandom(){
 }
 
 function pickAnimationPosition(){
-  let currPos = getRandomInt(8)
-  document.getElementById(animation).classList.add("position" + currPos);
+  let currPos = getRandomInt(7) // responds to how many classes there are in css file with positions
+  let currClass = document.getElementById(animation).classList
+  //remove previous class
+  if (currClass.item(0) != null) currClass.remove(currClass.item(0))
+  currClass.add("position" + currPos);
 }
 
 //
 //Listen for window size change
 //
 window.addEventListener("resize", () => {
-  // getWindowSize();
   let newMeasurements = getWidthHeight(element);
-  console.log(newMeasurements)
   changeHeight(container, newMeasurements.height)
 });
 
-setInterval(() => isTimeToChangeBackground(), 6000); //check for update every minute
+setInterval(() => isTimeToChangeBackground(), 60000); //check for update every minute
 
 function init(){
   let newMeasurements = getWidthHeight(element);
