@@ -1,4 +1,5 @@
 const element = "animated_bg_img"
+const animation = "animation_img"
 const container = "animated_bg_container"
 const animationsArray = ["Asset-36RubyBlink-256.gif","Rubybot-scratch.gif","Rubyfornia-v1.0-618x618-stretch-f.gif"]
 
@@ -33,6 +34,11 @@ function applyBackground(fullUrl, el){
   return document.getElementById(el).src = fullUrl
 }
 
+//apply new animation
+function applyAnimation(fullUrl, el){
+  return document.getElementById(el).src = fullUrl
+}
+
 //generate full path for bg img
 function generateBgFullPath(image){
   return "./images/bg/" + image
@@ -56,12 +62,15 @@ function isTimeToChangeBackground(){
   // minutes = 23
   //end for testing
 
+  //bolshe 2x no menishe 3 i 14 minut
+
   console.log(`Hours: ${hours} Minutes: ${minutes}`)
 
   if (0 <= hours && hours < 2){
     imgName = "v10-0000"
-  } else if (2 <= hours && (hours >= 3 && minutes <= 14)){
+  } else if ((2 <= hours) && (hours = 3 && minutes <= 14)){
     imgName = "v10-0200"
+    console.log('2 nochi')
   } else if ((3 >= hours && minutes > 14) && hours < 4){
     imgName = "v10-0314"
   } else if (4 <= hours && hours < 6){
@@ -102,6 +111,18 @@ function isTimeToChangeBackground(){
   applyBackground(generateBgFullPath(imgName), element)
 }
 
+//generate random number
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+//random number represents position in array of animations
+function pickAnimationRandom(){
+  let animationPosition = getRandomInt(animationsArray.length)
+  let path = generateAnimationFullPath(animationsArray[animationPosition])
+  document.getElementById(animation).src = path
+}
+
 //listen for window size change
 window.addEventListener("resize", () => {
   // getWindowSize();
@@ -116,6 +137,7 @@ function init(){
   let newMeasurements = getWidthHeight(element);
   changeHeight(container, newMeasurements.height)
   isTimeToChangeBackground()
+  pickAnimationRandom()
 }
 
 init()
