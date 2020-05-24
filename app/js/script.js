@@ -29,26 +29,37 @@ function getCurrentBg(el){
   return document.getElementById(el).src
 }
 
-//apply new bg image
+//
+//Apply new bg image
+//
 function applyBackground(fullUrl, el){
   return document.getElementById(el).src = fullUrl
 }
 
-//apply new animation
+//
+//Apply new animation
+//
 function applyAnimation(fullUrl, el){
   return document.getElementById(el).src = fullUrl
 }
 
-//generate full path for bg img
+//
+//Generate full path for bg img
+//
 function generateBgFullPath(image){
   return "./images/bg/" + image
 }
 
-//generate full path for animation img
+//
+//Generate full path for animation img
+//
 function generateAnimationFullPath(image){
   return "./images/animation/" + image
 }
 
+//
+// Determine if it is time to change background
+//
 function isTimeToChangeBackground(){
   let imgName = ""
   let imgExtention = ".png"
@@ -109,21 +120,34 @@ function isTimeToChangeBackground(){
 
   generateBgFullPath(imgName)
   applyBackground(generateBgFullPath(imgName), element)
+  pickAnimationRandom()
+  pickAnimationPosition()
 }
 
-//generate random number
+//
+//Generate random number
+//
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-//random number represents position in array of animations
+//
+//Random number represents position in array of animations
+//
 function pickAnimationRandom(){
-  let animationPosition = getRandomInt(animationsArray.length)
-  let path = generateAnimationFullPath(animationsArray[animationPosition])
+  let animationImg = getRandomInt(animationsArray.length)
+  let path = generateAnimationFullPath(animationsArray[animationImg])
   document.getElementById(animation).src = path
 }
 
-//listen for window size change
+function pickAnimationPosition(){
+  let currPos = getRandomInt(8)
+  document.getElementById(animation).classList.add("position" + currPos);
+}
+
+//
+//Listen for window size change
+//
 window.addEventListener("resize", () => {
   // getWindowSize();
   let newMeasurements = getWidthHeight(element);
@@ -138,6 +162,7 @@ function init(){
   changeHeight(container, newMeasurements.height)
   isTimeToChangeBackground()
   pickAnimationRandom()
+  pickAnimationPosition()
 }
 
 init()
