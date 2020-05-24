@@ -1,26 +1,27 @@
-//
-// CANVAS
-//
-// let canvas = document.getElementById("canvas"),
-// ctx = canvas.getContext("2d");
-//
-// canvas.width = 903;
-// canvas.height = 657;
-//
-// let background = new Image();
-// background.src = "http://www.samskirrow.com/background.png";
-//
-// // Make sure the image is loaded first otherwise nothing will draw.
-// background.onload = function(){
-//     ctx.drawImage(background,0,0);
-// }
-//
-// END CANVAS
-//
-//
-// element.style.background = "url('a.png') 0 100%, url('b.png') 50px 50px ";
-
 const element = "animated_bg_img"
+const container = "animated_bg_container"
+const animationsArray = ["Asset-36RubyBlink-256.gif","Rubybot-scratch.gif","Rubyfornia-v1.0-618x618-stretch-f.gif"]
+
+//get window size
+// function getWindowSize(){
+//     // Get width and height of the window excluding scrollbars
+//     let w = document.documentElement.clientWidth;
+//     let h = document.documentElement.clientHeight;
+//     console.log(`Window width: ${w}, height: ${h}`)
+// }
+
+function getWidthHeight(elemId){
+  let grabElement = document.getElementById(elemId);
+  let width = grabElement.clientWidth;
+  let height = grabElement.clientHeight;
+  // console.log(`Image width: ${width}, height: ${height}`);
+  return { width, height}
+}
+
+function changeHeight(elementId,height){
+  let grabElement = document.getElementById(elementId);
+  return grabElement.style.height = height + "px"
+}
 
 //FOR DIV
 function getCurrentBg(el){
@@ -39,7 +40,7 @@ function generateBgFullPath(image){
 
 //generate full path for animation img
 function generateAnimationFullPath(image){
-  return "./images/animation/" + image + '.gif'
+  return "./images/animation/" + image
 }
 
 function isTimeToChangeBackground(){
@@ -51,8 +52,8 @@ function isTimeToChangeBackground(){
   let minutes = rightNow.getMinutes()
 
   //for TESTING
-  hours = 4
-  minutes = 23
+  // hours = 4
+  // minutes = 23
   //end for testing
 
   console.log(`Hours: ${hours} Minutes: ${minutes}`)
@@ -101,6 +102,20 @@ function isTimeToChangeBackground(){
   applyBackground(generateBgFullPath(imgName), element)
 }
 
-isTimeToChangeBackground()
+//listen for window size change
+window.addEventListener("resize", () => {
+  // getWindowSize();
+  let newMeasurements = getWidthHeight(element);
+  console.log(newMeasurements)
+  changeHeight(container, newMeasurements.height)
+});
 
-setInterval(() => isTimeToChangeBackground(), 3000); //check for update every minute
+setInterval(() => isTimeToChangeBackground(), 6000); //check for update every minute
+
+function init(){
+  let newMeasurements = getWidthHeight(element);
+  changeHeight(container, newMeasurements.height)
+  isTimeToChangeBackground()
+}
+
+init()
